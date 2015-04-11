@@ -4,6 +4,7 @@
 
 	<ui:define name="body">
 		<h:form prependId="false" acceptcharset="ISO-8859-1">
+			<p:growl showDetail="true" id="growl"/>
 			<br/>
 			<p:fieldset legend="Dados Pessoais" toggleable="false" toggleSpeed="500">
 				<h:panelGrid id="fields" columns="3">
@@ -61,7 +62,7 @@
 					<p:message for="estadoCivil"/>
 					
 					<h:outputLabel value="Cônjuge" for="conjuge" styleClass="text-input"/>
-					<p:inputText id="conjuge" value="#{usuarioEditMB.bean.conjuge}" required="true" size="50"
+					<p:inputText id="conjuge" value="#{usuarioEditMB.bean.conjuge}" required="false" size="50"
 					 requiredMessage="Este campo é de preenchimento Obrigatório" />
 					<p:message for="conjuge"/>
 					
@@ -77,7 +78,7 @@
 					<p:message for="rg"/>
 					
 					<h:outputLabel value="CPF" for="cpf" styleClass="text-input"/>
-					<p:inputText id="cpf" value="#{usuarioEditMB.bean.cpf}" required="false" size="10" maxlength="11"
+					<p:inputMask mask="999.999.999-99" id="cpf" value="#{usuarioEditMB.bean.cpf}" required="false" size="10" maxlength="11"
 					 requiredMessage="Este campo é de preenchimento Obrigatório" />
 					<p:message for="cpf"/>
 						
@@ -187,26 +188,26 @@
 					</p:inputMask>
 					<p:message for="fone1"></p:message>
 					
-					<h:outputLabel value="Telefone Secundario" for="fone2" styleClass="text-input"/>
+					<h:outputLabel value="Telefone Fixo" for="fone2" styleClass="text-input"/>
 					<p:inputMask mask="(99) 9999-9999" id="fone2" value="#{usuarioEditMB.bean.fone2}" size="9" maxlength="10"/>
 					<p:message for="fone2"/>
 					
 					<h:outputLabel value="E-mail" for="email" styleClass="text-input"/>
-					<p:inputText id="email" value="#{usuarioEditMB.bean.email}" required="true" size="50"
+					<p:inputText id="email" value="#{usuarioEditMB.bean.email}" required="false" size="50"
 					 requiredMessage="Este campo é de preenchimento Obrigatório" type="email"/>
 					<p:message for="email"/>
 
 				</h:panelGrid>
 			</p:fieldset>
 			<br/>
-			<p:commandButton value="Salvar" action="#{usuarioEditMB.insert}" rendered="#{!usuarioEditMB.updateMode}" ajax="false" />
-			<p:commandButton value="Alterar" action="#{usuarioEditMB.update}" rendered="#{usuarioEditMB.updateMode}" ajax="false" />
+			<p:commandButton value="Salvar" action="#{usuarioEditMB.insert}" rendered="#{!usuarioEditMB.updateMode}" ajax="false" actionListener="#{usuarioEditMB.saveMessage()}" update="growl" />
+			<p:commandButton value="Alterar" action="#{usuarioEditMB.update}" rendered="#{usuarioEditMB.updateMode}" ajax="false" actionListener="#{usuarioEditMB.alterarMessage()}" update="growl"/>
 			<p:commandButton value="Excluir" onclick="confirmation.show()" rendered="#{usuarioEditMB.updateMode}" type="button" immediate="true" ajax="false" />
 				<p:confirmDialog message="Deseja Exluir Esse Membro?" showEffect="bounce" hideEffect="explode"
 					header="Alerta" severity="alert" widgetVar="confirmation">
-					<h:commandButton value="Sim" action="#{usuarioEditMB.delete}" immediate="true"
+					<p:commandButton value="Sim" action="#{usuarioEditMB.delete}" immediate="true"
 						ajax="false" />
-					<h:commandButton value="Não" onclick="confirmation.hide()" type="button" />
+					<p:commandButton value="Não" onclick="confirmation.hide()" type="button" />
 				</p:confirmDialog>
 		</h:form>
 	</ui:define>

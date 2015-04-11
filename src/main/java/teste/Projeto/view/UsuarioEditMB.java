@@ -1,6 +1,8 @@
 package teste.Projeto.view;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import teste.Projeto.business.UsuarioBC;
@@ -12,7 +14,7 @@ import br.gov.frameworkdemoiselle.transaction.Transactional;
 
 @ManagedBean
 @ViewController
-@PreviousView("/usuario_list.xhtml")
+@PreviousView("/usuario_edit.xhtml")
 public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long>{
 
 	/**
@@ -47,6 +49,18 @@ public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long>{
 	@Override
 	protected Usuario handleLoad(Long id) {
 		return this.usuarioBC.load(id);
+	}
+	
+	public void saveMessage() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		context.addMessage(null, new FacesMessage("Cadastro Completo", "Membro " + getBean().getNome() + " Cadastrado com Sucesso!"));
+	}
+	
+	public void alterarMessage() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		
+		context.addMessage(null, new FacesMessage("Alteração Completa", "Membro " + getBean().getNome() + " Atualizado com Sucesso!"));
 	}
 
 }
