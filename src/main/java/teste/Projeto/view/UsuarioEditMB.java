@@ -1,5 +1,6 @@
 package teste.Projeto.view;
 
+import javax.faces.bean.ManagedBean;
 import javax.inject.Inject;
 
 import teste.Projeto.business.UsuarioBC;
@@ -9,6 +10,7 @@ import br.gov.frameworkdemoiselle.stereotype.ViewController;
 import br.gov.frameworkdemoiselle.template.AbstractEditPageBean;
 import br.gov.frameworkdemoiselle.transaction.Transactional;
 
+@ManagedBean
 @ViewController
 @PreviousView("/usuario_list.xhtml")
 public class UsuarioEditMB extends AbstractEditPageBean<Usuario, Long>{

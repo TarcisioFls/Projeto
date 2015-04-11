@@ -4,8 +4,8 @@
 
 	<ui:define name="body">
 		<h:form prependId="false" acceptcharset="ISO-8859-1">
-
-			<p:fieldset legend="Dados Pessoais" toggleable="true" toggleSpeed="500">
+			<br/>
+			<p:fieldset legend="Dados Pessoais" toggleable="false" toggleSpeed="500">
 				<h:panelGrid id="fields" columns="3">
 				
 					<h:outputLabel value="Nome" for="nome" styleClass="text-input" />
@@ -199,13 +199,10 @@
 				</h:panelGrid>
 			</p:fieldset>
 			<br/>
-			<p:commandButton value="Salvar" action="#{usuarioEditMB.insert}"
-				rendered="#{!usuarioEditMB.updateMode}" ajax="false" />
-			<p:commandButton value="Alterar" action="#{usuarioEditMB.update}"
-				rendered="#{usuarioEditMB.updateMode}" ajax="false" />
-			<p:commandButton value="Excluir" onclick="confirmation.show()"
-				rendered="#{usuarioEditMB.updateMode}" type="button" immediate="true" ajax="false" />
-				<p:confirmDialog message="Deseja Exluir Esse Item?" showEffect="bounce" hideEffect="explode"
+			<p:commandButton value="Salvar" action="#{usuarioEditMB.insert}" rendered="#{!usuarioEditMB.updateMode}" ajax="false" />
+			<p:commandButton value="Alterar" action="#{usuarioEditMB.update}" rendered="#{usuarioEditMB.updateMode}" ajax="false" />
+			<p:commandButton value="Excluir" onclick="confirmation.show()" rendered="#{usuarioEditMB.updateMode}" type="button" immediate="true" ajax="false" />
+				<p:confirmDialog message="Deseja Exluir Esse Membro?" showEffect="bounce" hideEffect="explode"
 					header="Alerta" severity="alert" widgetVar="confirmation">
 					<h:commandButton value="Sim" action="#{usuarioEditMB.delete}" immediate="true"
 						ajax="false" />

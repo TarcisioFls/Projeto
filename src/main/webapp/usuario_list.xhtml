@@ -6,51 +6,45 @@
 		<h:form acceptcharset="ISO-8859-1">
 		 
 			<p:commandButton title="Novo" icon="ui-icon-document" action="#{usuarioListMB.getNextView}"
-						actionListener="#{usuarioListMB.clear}" ajax="false" />
+				actionListener="#{usuarioListMB.clear}" ajax="false" />
+			<p:commandButton title="Excluir" icon="ui-icon-trash" onclick="confirmation.show()"
+				type="button" immediate="true" ajax="false" />
+			<p:confirmDialog message="Deseja Excluir Esse Membro?" showEffect="bounce" hideEffect="explode"
+				header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
+				<p:commandButton value="Sim" action="#{usuarioListMB.deleteSelection}"
+					actionListener="#{usuarioListMB.clear}" />
+				<p:commandButton value="Não" onclick="confirmation.hide()" type="button" />
+			</p:confirmDialog>
 
-					<p:commandButton title="Excluir" icon="ui-icon-trash" onclick="confirmation.show()"
-						type="button" immediate="true" ajax="false" />
-
-					<p:confirmDialog message="Deseja Excluir Esse Item?" showEffect="bounce" hideEffect="explode"
-						header="#{messages['label.dialog.alert']}!" severity="alert" widgetVar="confirmation">
-
-						<h:commandButton value="Sim" action="#{usuarioListMB.deleteSelection}"
-							actionListener="#{usuarioListMB.clear}" />
-						<h:commandButton value="Não" onclick="confirmation.hide()" type="button" />
-					</p:confirmDialog>
-
-
-			<p:dataTable id="list" var="bean" value="#{usuarioListMB.resultList}">
+			<p:dataTable id="list" var="bean" value="#{usuarioListMB.resultList}" paginator="true" rows="15" emptyMessage="Não há usuários cadastrados" filteredValue="#{usuarioListMB.filtroUsuario}" widgetVar="lu">
+				
 				<f:facet name="header">Usuários Cadastrados</f:facet>
-				<p:column style="width:5%;">
+				<p:column style="width:3%;">
 					<h:selectBooleanCheckbox value="#{usuarioListMB.selection[bean.id]}" />
 				</p:column>
-				<p:column style="width:5%;" sortBy="#{bean.id}">
-					<f:facet name="header">#{messages['bookmark.label.id']}</f:facet>
-					<h:outputText value="#{bean.id}" />
-				</p:column>
-				<p:column sortBy="#{bean.nome}">
-					<f:facet name="header">Nome</f:facet>
+				
+				<p:column sortBy="#{bean.nome}" filterMatchMode="contains" filterBy="#{bean.nome}">
+					<f:facet name="header" >Nome</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
 						<h:outputText value="#{bean.nome}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<p:column sortBy="#{bean.nomePai}">
+				<p:column sortBy="#{bean.nomePai}" filterBy="#{bean.nomePai}">
 					<f:facet name="header">Nome do Pai</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
 						<h:outputText value="#{bean.nomePai}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<p:column sortBy="#{bean.nomeMae}">
+				<p:column sortBy="#{bean.nomeMae}" filterBy="#{bean.nomeMae}">
 					<f:facet name="header">Nome da Mãe</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
 						<h:outputText value="#{bean.nomeMae}" />
 						<f:param name="id" value="#{bean.id}" />
 					</h:commandLink>
 				</p:column>
-				<p:column sortBy="#{bean.dataNascimento}">
+				<p:column sortBy="#{bean.dataNascimento}" filterBy="#{bean.dataNascimento}">
 					<f:facet name="header">Data de Nascimento</f:facet>
 					<h:commandLink action="#{usuarioListMB.getNextView}" actionListener="#{usuarioListMB.clear}">
 						<h:outputText value="#{bean.dataNascimento}" />
